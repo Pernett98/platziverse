@@ -4,15 +4,25 @@
   "description": "A simple IoY Plaform - DB Module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "standard"
+    "test": "export DEBUG=platziverse:* && nyc --reporter=lcov ava tests/ --verbose",
+    "lint": "standard",
+    "setup": "export DEBUG=platziverse:* && node setup.js"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "ava": "^0.25.0",
+    "nyc": "^13.0.1",
+    "proxyquire": "^2.1.0",
+    "sinon": "^6.1.5",
+    "sqlite3": "^4.0.2",
     "standard": "^12.0.1"
   },
   "dependencies": {
+    "chalk": "^2.4.1",
+    "debug": "^3.1.0",
+    "defaults": "^1.0.3",
+    "inquirer": "^6.2.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.38.0"
