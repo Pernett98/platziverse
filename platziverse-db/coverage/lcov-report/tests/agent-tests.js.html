@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">11.96% </span>
+        <span class="strong">4.4% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>11/92</span>
+        <span class='fraction'>4/91</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">13.1% </span>
+        <span class="strong">4.82% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>11/84</span>
+        <span class='fraction'>4/83</span>
       </div>
     </div>
     <p class="quiet">
@@ -203,10 +203,7 @@
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a>
-<a name='L161'></a><a href='#L161'>161</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -214,23 +211,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -281,7 +275,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -366,6 +359,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict'
 &nbsp;
 const test = require('ava')
@@ -374,24 +368,21 @@ const proxyquire = require('proxyquire')
 &nbsp;
 const agentFixtures = require('./fixtures/agent')
 &nbsp;
-let config = {
+let config = <span class="cstat-no" title="statement not covered" >{</span>
   logging: <span class="fstat-no" title="function not covered" >() =&gt; </span>{}
 }
 &nbsp;
-let MetricStub = {
+let MetricStub = <span class="cstat-no" title="statement not covered" >{</span>
   belongsTo: sinon.spy()
 }
 &nbsp;
-let id = 1
-let single = Object.assign({}, agentFixtures.single)
-let connectedArgs = { 
+let id = <span class="cstat-no" title="statement not covered" >1</span>
+let single = <span class="cstat-no" title="statement not covered" >Object.assign({}, agentFixtures.single)</span>
+let connectedArgs = <span class="cstat-no" title="statement not covered" >{</span>
   where: { connected: true }
 }
-let usernameArgs = { 
+let usernameArgs = <span class="cstat-no" title="statement not covered" >{</span>
   where: { username: 'platzi', connected: true }
-}
-let uuiddArgs = { 
-  where: { uuid }
 }
 let newAgent = <span class="cstat-no" title="statement not covered" >{</span>
   uuid: '123-123-123',
@@ -427,7 +418,7 @@ let uuidArgs = <span class="cstat-no" title="statement not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >  AgentStub.findOne = sandbox.stub()</span>
 <span class="cstat-no" title="statement not covered" >  AgentStub.findOne.withArgs(uuidArgs).returns(Promise.resolve(agentFixtures.byUuid(uuid)))</span>
 &nbsp;
-  //  Model findById stub 
+  //  Model findById stub
 <span class="cstat-no" title="statement not covered" >  AgentStub.findById = sandbox.stub()</span>
 <span class="cstat-no" title="statement not covered" >  AgentStub.findById.withArgs(id).returns(Promise.resolve(agentFixtures.byId(id)))</span>
 &nbsp;
@@ -438,9 +429,8 @@ let uuidArgs = <span class="cstat-no" title="statement not covered" >{</span>
   // Model find all stub
 <span class="cstat-no" title="statement not covered" >  AgentStub.findAll = sandbox.stub()</span>
 <span class="cstat-no" title="statement not covered" >  AgentStub.findAll.withArgs().returns(Promise.resolve(agentFixtures.all))</span>
-<span class="cstat-no" title="statement not covered" >  AgentStub.findAll.withArgs(connectedArgs).returns(agentFixtures.connected)</span>
-<span class="cstat-no" title="statement not covered" >  AgentStub.findAll.withArgs(usernameArgs).returns(agentFixtures.platzi)</span>
-&nbsp;
+<span class="cstat-no" title="statement not covered" >  AgentStub.findAll.withArgs(connectedArgs).returns(Promise.resolve(agentFixtures.connected))</span>
+<span class="cstat-no" title="statement not covered" >  AgentStub.findAll.withArgs(usernameArgs).returns(Promise.resolve(agentFixtures.platzi))</span>
 &nbsp;
   const setupDatabase = <span class="cstat-no" title="statement not covered" >proxyquire('../', {</span>
     './models/agent': <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" ></span>AgentStub,</span>
@@ -498,7 +488,7 @@ let uuidArgs = <span class="cstat-no" title="statement not covered" >{</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  t.true(AgentStub.findAll.called, 'Agent findByUsername has been called')</span>
 <span class="cstat-no" title="statement not covered" >  t.true(AgentStub.findAll.calledOnce, 'Agent findByUsername has been called once')</span>
-<span class="cstat-no" title="statement not covered" >  t.true(AgentStub.findAll.calledWith(findByUsername), 'Agent findByUsername should be called with query')</span>
+<span class="cstat-no" title="statement not covered" >  t.true(AgentStub.findAll.calledWith(usernameArgs), 'Agent findByUsername should be called with query')</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  t.deepEqual(agents, agentFixtures.platzi, 'should by be the same')</span>
 })
@@ -523,16 +513,17 @@ let uuidArgs = <span class="cstat-no" title="statement not covered" >{</span>
   }), 'findOne should be called with uuid args')
 <span class="cstat-no" title="statement not covered" >  t.true(AgentStub.create.called, 'create called')</span>
 <span class="cstat-no" title="statement not covered" >  t.true(AgentStub.create.calledOnce, 'create called Once')</span>
-<span class="cstat-no" title="statement not covered" >  t.true(AgentStub.findOne.calledWith(newAgent), 'crate should be called with newAgent')</span>
+<span class="cstat-no" title="statement not covered" >  t.true(AgentStub.create.calledWith(newAgent), 'crate should be called with newAgent')</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  t.deepEqual(agent, single, 'Agent should be the same')</span>
-})</pre></td></tr>
+<span class="cstat-no" title="statement not covered" >  t.deepEqual(agent, newAgent, 'Agent should be the same')</span>
+})
+&nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Sep 06 2018 23:16:59 GMT-0500 (Colombia Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Sep 09 2018 11:31:55 GMT-0500 (Colombia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

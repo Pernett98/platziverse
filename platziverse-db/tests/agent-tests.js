@@ -16,10 +16,10 @@ let MetricStub = {
 
 let id = 1
 let single = Object.assign({}, agentFixtures.single)
-let connectedArgs = { 
+let connectedArgs = {
   where: { connected: true }
 }
-let usernameArgs = { 
+let usernameArgs = {
   where: { username: 'platzi', connected: true }
 }
 let newAgent = {
@@ -56,7 +56,7 @@ test.beforeEach(async () => {
   AgentStub.findOne = sandbox.stub()
   AgentStub.findOne.withArgs(uuidArgs).returns(Promise.resolve(agentFixtures.byUuid(uuid)))
 
-  //  Model findById stub 
+  //  Model findById stub
   AgentStub.findById = sandbox.stub()
   AgentStub.findById.withArgs(id).returns(Promise.resolve(agentFixtures.byId(id)))
 
@@ -69,7 +69,6 @@ test.beforeEach(async () => {
   AgentStub.findAll.withArgs().returns(Promise.resolve(agentFixtures.all))
   AgentStub.findAll.withArgs(connectedArgs).returns(Promise.resolve(agentFixtures.connected))
   AgentStub.findAll.withArgs(usernameArgs).returns(Promise.resolve(agentFixtures.platzi))
-
 
   const setupDatabase = proxyquire('../', {
     './models/agent': () => AgentStub,
