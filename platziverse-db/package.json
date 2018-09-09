@@ -6,7 +6,7 @@
   "scripts": {
     "test": "export DEBUG=platziverse:* && nyc --reporter=lcov ava tests/ --verbose",
     "lint": "standard",
-    "setup": "export DEBUG=platziverse:* && node setup.js"
+    "setup": "export DEBUG=platziverse:* && node setup.js -- -y"
   },
   "author": "",
   "license": "MIT",
