@@ -5,8 +5,7 @@ const mosca = require('mosca')
 const redis = require('redis')
 const chalk = require('chalk')
 const db = require('platziverse-db')
-const platziverseUtils = require('platziverse-utils')
-const { parsePayload } = require('./utils')
+const { configDB, parsePayload } = require('platziverse-utils')
 
 const backend = {
   type: 'redis',
@@ -19,7 +18,7 @@ const settings = {
   backend
 }
 
-const config = platziverseUtils.configDB(debug, false)
+const config = configDB(debug, false)
 
 const server = new mosca.Server(settings)
 const clients = new Map()
@@ -77,7 +76,6 @@ server.on('published', async (packet, client) => {
           return handleError(error)
         }
         debug(`Agent ${agent.uuid} saved`)
-
         // Notify Agent is Connected
         if (!clients.get(client.id)) {
           clients.set(client.id, agent)
@@ -93,15 +91,12 @@ server.on('published', async (packet, client) => {
         }
         // Store Metrics
         for (let metric of payload.metrics) {
-          let m
-
           try {
-            m = await Metric.create(agent.uuid, metric)
+            Metric.create(agent.uuid, metric)
+            .then(m => debug(`Metrics ${m.id}, saved on agent ${agent.uuid}`))
           } catch (error) {
             return handleError(error)
           }
-
-          debug(`Metrics ${m.id}, saved on agent ${agent.uuid}`)
         }
       }
       break
