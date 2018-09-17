@@ -1,6 +1,6 @@
 'use strict'
 
-const { extend } = require('./utils');
+const { extend } = require('../utils')
 
 const agent = {
   id: 1,

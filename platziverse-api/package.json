@@ -15,12 +15,18 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "nodemon": "^1.18.4",
+    "proxyquire": "^2.1.0",
+    "sinon": "^6.3.3",
     "standard": "^12.0.1",
     "supertest": "^3.3.0"
   },
   "dependencies": {
     "chalk": "^2.4.1",
     "debug": "^4.0.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "express-asyncify": "^1.0.0",
+    "platziverse-db": "file:../platziverse-db",
+    "platziverse-utils": "file:../platziverse-utils",
+    "platziverse-test-utils": "file:../platziverse-test-utils"
   }
 }

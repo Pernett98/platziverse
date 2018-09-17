@@ -26,6 +26,7 @@
     "inquirer": "^6.2.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.38.0"
+    "sequelize": "^4.38.0",
+    "platziverse-test-utils": "file:../platziverse-test-utils"
   }
 }
