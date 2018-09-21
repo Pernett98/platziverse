@@ -1,6 +1,7 @@
 'use strict'
 
 const test = require('ava')
+const util = require('util')
 const request = require('supertest')
 
 const sinon = require('sinon')
@@ -9,9 +10,16 @@ const proxyquire = require('proxyquire')
 const platziverseTestUtils = require('platziverse-test-utils')
 const { agentFixtures, metricFixtures } = platziverseTestUtils.fixtures
 
+const { getAuthConfig } = require('platziverse-utils')
+const authConfig = getAuthConfig()
+
+const auth = require('../auth')
+const sign = util.promisify(auth.sign)
+
 let sandbox = null
 let server = null
 let dbStub = null
+let token = null
 let AgentStub = {}
 let MetricStub = {}
 const testUuid = 'yyy-yyy-yyy'
@@ -43,6 +51,8 @@ test.beforeEach(async () => {
     Metric: MetricStub
   }))
 
+  token = await sign({ admin: true, username: 'platzi' }, authConfig.secret)
+
   const api = proxyquire('../api', {
     'platziverse-db': dbStub
   })
@@ -59,9 +69,11 @@ test.afterEach(async () => {
 test.serial.cb('/api/agents', t => {
   request(server)
     .get('/api/agents')
+    .set('Authorization', `Bearer ${token}`)
     .expect(200)
     .expect('Content-Type', /json/)
     .end((err, res) => {
+      console.error(err);
       t.falsy(err, 'should not return an error')
       let body = JSON.stringify(res.body)
       let expected = JSON.stringify(agentFixtures.connected)
@@ -73,6 +85,7 @@ test.serial.cb('/api/agents', t => {
 test.serial.cb('/api/agent/:uuid', t => {
   request(server)
   .get('/api/agent/' + testUuid)
+  .set('Authorization', `Bearer ${token}`)
   .expect(200)
   .expect('Content-Type', /json/)
   .end((err, res) => {
@@ -87,6 +100,7 @@ test.serial.cb('/api/agent/:uuid', t => {
 test.serial.cb('/api/agent/:uuid - not found', t => {
   request(server)
   .get('/api/agent/' + 's')
+  .set('Authorization', `Bearer ${token}`)
   .expect(404)
   .expect('Content-Type', /json/)
   .end((err, res) => {
@@ -101,6 +115,7 @@ test.serial.cb('/api/agent/:uuid - not found', t => {
 test.serial.cb('/api/metrics/:uuid', t => {
   request(server)
   .get('/api/metrics/' + testUuid)
+  .set('Authorization', `Bearer ${token}`)
   .expect(200)
   .expect('Content-Type', /json/)
   .end((err, res) => {
@@ -115,6 +130,7 @@ test.serial.cb('/api/metrics/:uuid', t => {
 test.serial.cb('/api/metrics/:uuid - not found', t => {
   request(server)
   .get('/api/metrics/' + badUuid)
+  .set('Authorization', `Bearer ${token}`)
   .expect(404)
   .expect('Content-Type', /json/)
   .end((err, res) => {
@@ -128,6 +144,7 @@ test.serial.cb('/api/metrics/:uuid - not found', t => {
 test.serial.cb('/api/metrics/:uuid/:type', t => {
   request(server)
   .get(`/api/metrics/${testUuid}/${testMetricType}`)
+  .set('Authorization', `Bearer ${token}`)
   .expect(200)
   .expect('Content-Type', /json/)
   .end((err, res) => {
@@ -142,6 +159,7 @@ test.serial.cb('/api/metrics/:uuid/:type', t => {
 test.serial.cb('/api/metrics/:uuid/:type - not found', t => {
   request(server)
   .get(`/api/metrics/${badUuid}/${badMetricType}`)
+  .set('Authorization', `Bearer ${token}`)
   .expect(404)
   .expect('Content-Type', /json/)
   .end((err, res) => {

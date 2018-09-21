@@ -18,7 +18,10 @@ app.use('/api', api)
 app.use((err, req, res, next) => {
   debug(`${chalk.red('Error')}`)
   debug(err)
-  const code = err.code || 500
+  let code = 500
+  if (err && typeof err.code == 'number') {
+    code = err.code
+  }
 
   res.status(code).send({
     error: err.message

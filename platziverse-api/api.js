@@ -4,10 +4,13 @@ const Debug = require('debug')
 const express = require('express')
 const asyncify = require('express-asyncify')
 const db = require('platziverse-db')
+const auth = require('express-jwt');
 const {
-  configDB
+  configDB,
+  getAuthConfig
 } = require('platziverse-utils')
 const {
+  ErrorWithHTTPError,
   AgentNotFoundError,
   MetricsNotFoundError
 } = require('./custom-errors')
@@ -18,6 +21,8 @@ const debugDB = Debug('platziverse:api:db')
 const config = configDB(debugDB, false)
 
 const api = asyncify(express.Router())
+
+const authConfig = getAuthConfig()
 
 let services, Agent, Metric
 
@@ -35,13 +40,22 @@ api.use('*', async (req, res, next) => {
   next()
 })
 
-api.get('/agents', async (req, res, next) => {
+api.get('/agents', auth(authConfig), async (req, res, next) => {
   debug('A request has come to /agents')
+  const { user } =  req
+
+  if (!user || !user.username) {
+    return new ErrorWithHTTPError(403, "Not authorizedt")
+  }
 
   let agents = []
 
   try {
-    agents = await Agent.findConnected()
+    if (user.admin) {
+      agents = await Agent.findConnected()
+    } else {
+      agents = await Agent.findByUsername(user.username)
+    }
   } catch (error) {
     return next(error)
   }
@@ -49,7 +63,7 @@ api.get('/agents', async (req, res, next) => {
   res.send(agents)
 })
 
-api.get('/agent/:uuid', async (req, res, next) => {
+api.get('/agent/:uuid', auth(authConfig), async (req, res, next) => {
   const {
     uuid
   } = req.params
@@ -70,7 +84,7 @@ api.get('/agent/:uuid', async (req, res, next) => {
   res.send(agent)
 })
 
-api.get('/metrics/:uuid', async (req, res, next) => {
+api.get('/metrics/:uuid', auth(authConfig), async (req, res, next) => {
   const {
     uuid
   } = req.params
@@ -91,7 +105,7 @@ api.get('/metrics/:uuid', async (req, res, next) => {
   res.send(metrics)
 })
 
-api.get('/metrics/:uuid/:type', async (req, res, next) => {
+api.get('/metrics/:uuid/:type', auth(authConfig), async (req, res, next) => {
   const {
     uuid,
     type

@@ -1,5 +1,15 @@
 'use strict'
 
+class ErrorWithHTTPError extends Error {
+  constructor(httpCode, ...params) {
+    super(...params)
+    this.code = httpCode
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, ErrorWithHTTPError)
+    }
+  }
+}
+
 class AgentNotFoundError extends Error {
   constructor (givenUuid, ...params) {
     super(...params)
@@ -62,5 +72,6 @@ module.exports = {
   AgentNotFoundError,
   NotAuthenticatedError,
   NotAuthorizedError,
-  MetricsNotFoundError
+  MetricsNotFoundError,
+  ErrorWithHTTPError
 }

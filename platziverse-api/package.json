@@ -25,8 +25,10 @@
     "debug": "^4.0.1",
     "express": "^4.16.3",
     "express-asyncify": "^1.0.0",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.3.0",
     "platziverse-db": "file:../platziverse-db",
-    "platziverse-utils": "file:../platziverse-utils",
-    "platziverse-test-utils": "file:../platziverse-test-utils"
+    "platziverse-test-utils": "file:../platziverse-test-utils",
+    "platziverse-utils": "file:../platziverse-utils"
   }
 }
