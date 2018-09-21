@@ -4,7 +4,8 @@ const Debug = require('debug')
 const express = require('express')
 const asyncify = require('express-asyncify')
 const db = require('platziverse-db')
-const auth = require('express-jwt');
+const auth = require('express-jwt')
+const guard = require('express-jwt-permissions')()
 const {
   configDB,
   getAuthConfig
@@ -42,10 +43,12 @@ api.use('*', async (req, res, next) => {
 
 api.get('/agents', auth(authConfig), async (req, res, next) => {
   debug('A request has come to /agents')
-  const { user } =  req
+  const {
+    user
+  } = req
 
   if (!user || !user.username) {
-    return new ErrorWithHTTPError(403, "Not authorizedt")
+    return new ErrorWithHTTPError(403, 'Not authorizedt')
   }
 
   let agents = []
@@ -63,7 +66,7 @@ api.get('/agents', auth(authConfig), async (req, res, next) => {
   res.send(agents)
 })
 
-api.get('/agent/:uuid', auth(authConfig), async (req, res, next) => {
+api.get('/agent/:uuid', auth(authConfig), guard.check(['metrics:read']), async (req, res, next) => {
   const {
     uuid
   } = req.params
@@ -84,7 +87,7 @@ api.get('/agent/:uuid', auth(authConfig), async (req, res, next) => {
   res.send(agent)
 })
 
-api.get('/metrics/:uuid', auth(authConfig), async (req, res, next) => {
+api.get('/metrics/:uuid', auth(authConfig), guard.check(['metrics:read']), async (req, res, next) => {
   const {
     uuid
   } = req.params
@@ -105,7 +108,7 @@ api.get('/metrics/:uuid', auth(authConfig), async (req, res, next) => {
   res.send(metrics)
 })
 
-api.get('/metrics/:uuid/:type', auth(authConfig), async (req, res, next) => {
+api.get('/metrics/:uuid/:type', auth(authConfig), guard.check(['metrics:read']), async (req, res, next) => {
   const {
     uuid,
     type

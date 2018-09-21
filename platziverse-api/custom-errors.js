@@ -1,7 +1,7 @@
 'use strict'
 
 class ErrorWithHTTPError extends Error {
-  constructor(httpCode, ...params) {
+  constructor (httpCode, ...params) {
     super(...params)
     this.code = httpCode
     if (Error.captureStackTrace) {

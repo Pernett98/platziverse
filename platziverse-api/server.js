@@ -19,7 +19,7 @@ app.use((err, req, res, next) => {
   debug(`${chalk.red('Error')}`)
   debug(err)
   let code = 500
-  if (err && typeof err.code == 'number') {
+  if (err && typeof err.code === 'number') {
     code = err.code
   }
 
