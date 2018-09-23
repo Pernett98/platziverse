@@ -79,6 +79,7 @@ server.on('published', async (packet, client) => {
         // Notify Agent is Connected
         if (!clients.get(client.id)) {
           clients.set(client.id, agent)
+          debug(`${chalk.blue('[WTF]')} connected ${client.nextId}`)
           server.publish({
             topic: 'agent/connected',
             payload: JSON.stringify({
