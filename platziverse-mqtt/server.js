@@ -5,7 +5,14 @@ const mosca = require('mosca')
 const redis = require('redis')
 const chalk = require('chalk')
 const db = require('platziverse-db')
-const { configDB, parsePayload } = require('platziverse-utils')
+const {
+  configDB,
+  parsePayload
+} = require('platziverse-utils')
+
+if (process.env.NODE_ENV !== "production") {
+  require('longjohn')
+}
 
 const backend = {
   type: 'redis',
@@ -79,14 +86,16 @@ server.on('published', async (packet, client) => {
         // Notify Agent is Connected
         if (!clients.get(client.id)) {
           clients.set(client.id, agent)
-          debug(`${chalk.blue('[WTF]')} connected ${client.nextId}`)
           server.publish({
             topic: 'agent/connected',
             payload: JSON.stringify({
-              uuid: agent.uuid,
-              name: agent.name,
-              hostname: agent.hostname,
-              pid: agent.pid
+              agent: {
+                uuid: agent.uuid,
+                name: agent.name,
+                hostname: agent.hostname,
+                pid: agent.pid,
+                connected: agent.connected
+              }
             })
           })
         }
@@ -94,7 +103,7 @@ server.on('published', async (packet, client) => {
         for (let metric of payload.metrics) {
           try {
             Metric.create(agent.uuid, metric)
-            .then(m => debug(`Metrics ${m.id}, saved on agent ${agent.uuid}`))
+              .then(m => debug(`Metrics ${m.id}, saved on agent ${agent.uuid}`))
           } catch (error) {
             return handleError(error)
           }
@@ -113,12 +122,12 @@ server.on('ready', async () => {
 
 server.on('error', handleFatalError)
 
-function handleFatalError (error) {
+function handleFatalError(error) {
   handleError(error)
   process.exit(1)
 }
 
-function handleError (error) {
+function handleError(error) {
   console.error(`${chalk.red('[fatal error]')} ${error.message} `)
   console.error(error.stack)
 }

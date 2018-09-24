@@ -75,7 +75,8 @@
 </style>
 
 <script>
-const request = require("request-promise-native");
+const { serverHost } = require('../config')
+const request = require("request-promise-native")
 
 module.exports = {
   props: ["uuid", "socket"],
@@ -101,7 +102,7 @@ module.exports = {
       const { uuid } = this;
       const options = {
         method: "GET",
-        url: `http://localhost:8080/agent/${uuid}`,
+        url: `${serverHost}/${uuid}`,
         json: true
       };
       let agent;
@@ -124,7 +125,7 @@ module.exports = {
       const { uuid } = this;
       const options = {
         method: "GET",
-        url: `http://localhost:8080/metrics/${uuid}`,
+        url: `${serverHost}/metrics/${uuid}`,
         json: true
       };
       let metrics;

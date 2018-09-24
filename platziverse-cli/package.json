@@ -1,0 +1,20 @@
+{
+  "name": "platziverse-cli",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A Simple IoT Platform - CLI",
+  "bin": "platziverse.js",
+  "scripts": {
+    "lint": "standard"
+  },
+  "author": "Sebastian Pernett Plaza",
+  "license": "MIT",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.6",
+    "moment": "^2.22.2",
+    "platziverse-agent": "file:../platziverse-agent",
+    "standard": "^12.0.1"
+  },
+  "devDependencies": {}
+}

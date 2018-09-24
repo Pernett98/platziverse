@@ -30,12 +30,10 @@ agent.on('message', handler)
 // Public events
 agent.on('agent/connected', handler)
 agent.on('agent/connected', handler)
-agent.on('agent/message', payload => {
-  console.log(payload)
-})
+agent.on('agent/message', handler)
 
 function handler (payload) {
   console.log(payload)
 }
 
-// setTimeout(() => agent.disconnect(), 20000)
+setTimeout(() => agent.disconnect(), 20000)

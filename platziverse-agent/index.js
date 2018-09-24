@@ -7,7 +7,9 @@ const mqtt = require('mqtt')
 const defaults = require('defaults');
 const EventEmitter = require('events')
 const uuid = require('uuid');
-const { parsePayload } = require('platziverse-utils')
+const {
+  parsePayload
+} = require('platziverse-utils')
 
 const options = {
   name: 'untitled',
@@ -29,7 +31,7 @@ class PlatziverseAgent extends EventEmitter {
     this._agentId = null
     this._metrics = new Map()
   }
-  
+
   addMetric(type, fn) {
     this._metrics.set(type, fn)
   }
@@ -88,7 +90,7 @@ class PlatziverseAgent extends EventEmitter {
       this._client.on('message', (topic, payload) => {
         payload = parsePayload(payload)
         let broadcast = false
-        
+
         switch (topic) {
           case 'agent/connected':
           case 'agent/disconnected':
@@ -96,7 +98,7 @@ class PlatziverseAgent extends EventEmitter {
             broadcast = payload && payload.agent && payload.agent.uuid !== this._agentId
             break
           default:
-            
+
         }
 
         if (broadcast) {
@@ -108,7 +110,7 @@ class PlatziverseAgent extends EventEmitter {
         this.disconnect()
       })
 
-      
+
     }
   }
 
@@ -122,4 +124,4 @@ class PlatziverseAgent extends EventEmitter {
   }
 }
 
-module.exports = PlatziverseAgent; 
+module.exports = PlatziverseAgent;

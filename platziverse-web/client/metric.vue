@@ -24,10 +24,11 @@ canvas {
 }
 </style>
 <script>
-const request = require("request-promise-native");
-const moment = require("moment");
-const randomMaterialColor = require("random-material-color");
-const LineChart = require("./line-chart");
+const request = require("request-promise-native")
+const moment = require("moment")
+const { serverHost } = require('../config')
+const randomMaterialColor = require("random-material-color")
+const LineChart = require("./line-chart")
 
 module.exports = {
   name: "metric",
@@ -54,7 +55,7 @@ module.exports = {
       this.color = randomMaterialColor.getColor();
       const options = {
         method: "GET",
-        url: `http://localhost:8080/metrics/${uuid}/${type}`,
+        url: `${serverHost}/metrics/${uuid}/${type}`,
         json: true
       };
       let result;

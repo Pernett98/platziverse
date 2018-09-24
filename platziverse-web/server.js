@@ -11,6 +11,10 @@ const PlatziverseAgent = require('platziverse-agent')
 const { pipe } = require('platziverse-utils')
 const proxy = require('./proxy')
 
+if (process.env.NODE_ENV !== "production") {
+  require('longjohn')
+}
+
 const port = process.env.PORT || 8080
 const app = asyncify(express())
 const server = http.createServer(app)

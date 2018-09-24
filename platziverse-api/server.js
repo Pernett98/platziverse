@@ -7,6 +7,10 @@ const chalk = require('chalk')
 const port = process.env.PORT || 3000
 const debug = require('debug')('platziverse:api')
 
+if (process.env.NODE_ENV !== "production") {
+  require('longjohn')
+}
+
 const api = require('./api')
 
 const app = asyncify(express())

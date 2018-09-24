@@ -7,12 +7,13 @@
   "scripts": {
     "test": "export DEBUG=platziverse:* && nyc --reporter=lcov ava tests/ --verbose",
     "lint": "standard",
-    "setup": "export DEBUG=platziverse:* && node setup.js -- -y"
+    "setup": "export DEBUG=platziverse:* && node setup.js"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.25.0",
+    "longjohn": "^0.2.12",
     "nyc": "^13.0.1",
     "proxyquire": "^2.1.0",
     "sinon": "^6.1.5",
