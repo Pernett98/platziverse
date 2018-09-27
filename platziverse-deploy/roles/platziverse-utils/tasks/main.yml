@@ -1,0 +1,10 @@
+- name: Copy platziverse-utils
+  copy:
+    src=platziverse-utils
+    dest=/usr/local/src
+    mode=u=rwx,g=rwx,o=rx 
+- name: Copy platziverse-test-utils
+  copy:
+    src=platziverse-test-utils
+    dest=/usr/local/src
+    mode=u=rwx,g=rwx,o=rx
