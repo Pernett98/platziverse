@@ -102,7 +102,7 @@ module.exports = {
       const { uuid } = this;
       const options = {
         method: "GET",
-        url: `${serverHost}/${uuid}`,
+        url: `${serverHost}/agent/${uuid}`,
         json: true
       };
       let agent;
